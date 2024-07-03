@@ -28,6 +28,6 @@ defmodule AccountTest do
       |> Account.deposit(MoneyMother.eur(100))
 
     assert {:error, :currency_mismatch} =
-             Account.deposit(account, %Money{amount: 100, currency: :USD})
+             Account.deposit(account, MoneyMother.usd(100))
   end
 end
