@@ -27,6 +27,14 @@ defmodule Account do
     end
   end
 
+  @spec withdraw(Account.t(), Money.t()) :: Account.t()
+  def withdraw(account, amount) do
+    case Money.subtract(account.balance, amount) do
+      {:ok, updated_balance} -> update_balance(account, updated_balance)
+      {:error, :insufficient_funds} -> {:error, :insufficient_funds}
+    end
+  end
+
   defp update_balance(account, balance) do
     %Account{
       account

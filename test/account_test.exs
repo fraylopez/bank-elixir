@@ -38,4 +38,13 @@ defmodule AccountTest do
 
     assert Account.currency_of(account) == :USD
   end
+
+  test "should withdraw balance" do
+    account =
+      Account.open()
+      |> Account.deposit(MoneyMother.eur(100))
+      |> Account.withdraw(MoneyMother.eur(50))
+
+    assert Account.balance_of(account) == 50
+  end
 end
