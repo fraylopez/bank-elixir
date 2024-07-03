@@ -17,6 +17,8 @@ defmodule Account do
 
   def balance_of(%Account{balance: balance}), do: balance.amount
 
+  def currency_of(%Account{balance: balance}), do: balance.currency
+
   @spec deposit(Account.t(), Money.t()) :: Account.t()
   def deposit(account, amount) do
     case Money.add(account.balance, amount) do

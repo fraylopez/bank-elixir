@@ -30,4 +30,12 @@ defmodule AccountTest do
     assert {:error, :currency_mismatch} =
              Account.deposit(account, MoneyMother.usd(100))
   end
+
+  test "should allow opening an account with a different currency" do
+    account =
+      Account.open(:USD)
+      |> Account.deposit(MoneyMother.usd(100))
+
+    assert Account.currency_of(account) == :USD
+  end
 end
