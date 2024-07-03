@@ -1,0 +1,141 @@
+@startuml
+
+
+actor UserActor
+
+package view {
+  boundary HttpPostDepositRouter
+  boundary HttpPostDepositController
+  note right of HttpPostDepositController
+    Translates http post body to number
+  end note
+}
+
+' package services {
+'   control DepositUseCaseController
+'   ' entity Account
+' }
+package kernel-elixir {
+    entity String
+    entity Enum
+    entity Ecto.Changeset
+    entity Ecto.Schema
+}
+
+
+package lib {
+  package bank_web {
+  }
+  package bank_messagebus {
+  }
+
+  package backoffice_web {
+  }
+
+
+  package bank {
+
+   package external_services {
+    package cabify {
+    }
+
+    package third_party {
+      boundary KYCService
+    }
+   }
+
+    package account {
+      ' (accounts.ex)
+
+      control Accounts
+
+      package services {
+        control DepositService
+        control TransferService
+
+
+      }
+
+      package account.infrastructure as "infrastructure" {
+        package storage {
+          entity AccountSchema
+          entity EctoMySQLAccountRepository
+        }
+
+        package messages {
+          boundary MessageBusPublisher
+          boundary ExternalService
+        }
+      }
+
+      package bank.entities as "entities" {
+        entity Account
+        entity UserId
+      }
+
+    }
+
+    package user {
+      control UpdateMailUseCaseController
+      boundary UserRepository
+      package user.entities as "entities" {
+        entity User
+        entity IdDocument
+        entity Mail
+        entity Name
+        entity Permissions
+      }
+    }
+  }
+
+  package backoffice {
+  }
+}
+
+
+  ' database MySQLDB
+' package contexts {
+
+
+'   package user {
+'     control UpdateMailUseCaseController
+'     entity User
+'     entity Mail
+'   }
+' }
+package test {
+  control IdDocumentTest
+}
+
+
+UserActor --> HttpPostDepositRouter : bitstream in tcp
+HttpPostDepositRouter --> HttpPostDepositController
+HttpPostDepositController --> DepositService : deposit(accountId, number)
+DepositService --> EctoMySQLAccountRepository : 1. get(accountId)
+DepositService --> Account : 2. deposit(number)
+DepositService --> EctoMySQLAccountRepository : 3. save(account)
+
+Account *--> UserId
+
+UpdateMailUseCaseController --> UserRepository : 1. get(userId)
+UpdateMailUseCaseController --> User : 2. update(mail)
+' UserRepository --> MySQLDB : update(user)
+
+User *--> IdDocument
+User *--> Mail
+User *--> Name
+User *--> Permissions
+
+
+Accounts *--> DepositService
+Accounts *--> TransferService
+
+
+' DepositUseCaseController --> EctoMySQLAccountRepository : 1. get(accountId)
+' DepositUseCaseController --> EctoMySQLAccountRepository : deposit(number)
+' Account --> EctoMySQLAccountRepository : 1. save(account)
+' EctoMySQLAccountRepository --> MySQLDB : update(account)
+
+' AccountTest --> Account
+@enduml
+

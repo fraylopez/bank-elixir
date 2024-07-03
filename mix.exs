@@ -6,6 +6,7 @@ defmodule Bank.MixProject do
       app: :bank,
       version: "0.1.0",
       elixir: "~> 1.16",
+      elixirc_paths: elixirrc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -25,4 +26,7 @@ defmodule Bank.MixProject do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]
   end
+
+  defp elixirrc_paths(:test), do: ["lib", "test/_support"]
+  defp elixirrc_paths(_other), do: ["lib"]
 end

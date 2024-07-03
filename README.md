@@ -1,21 +1,28 @@
 # Bank
 
-**TODO: Add description**
+## Goals
 
-## Installation
+- Architecture guidelines
+  - What's architecture?
+    - A set of rules that guide the development of a software system
+    - Can I extend the functionality of the system?
+      - Without changing the existing code (OCP)?
+    - MVC == EBC
+  - Why do we need it?
+    - To make sure that the system is maintainable, scalable, and testable
+- Code quality
+- Test piramid?
+  - unit
+  - integration
+  - e2e
+  - mocks
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `bank` to your list of dependencies in `mix.exs`:
+## Decisions
 
-```elixir
-def deps do
-  [
-    {:bank, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/bank>.
-
+- lib/
+  - some_package_web/
+  - some_package_messagebus/
+  - some_package/
+    - some_module/
+      - enitites
+      - SomeCaseController.ex
