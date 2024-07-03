@@ -31,7 +31,7 @@ defmodule AccountTest do
              Account.deposit(account, MoneyMother.usd(100))
   end
 
-  test "should allow opening an account with a different currency" do
+  test "should allow opening an account in a specific currency" do
     account =
       Account.open(:USD)
       |> Account.deposit(MoneyMother.usd(100))
