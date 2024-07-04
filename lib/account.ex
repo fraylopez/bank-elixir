@@ -6,6 +6,8 @@ defmodule Bank.Account do
   defstruct id: "",
             balance: 0
 
+  alias Bank.Money
+
   def open(currency \\ :EUR) do
     %__MODULE__{
       id: UniqueId.generate(),
