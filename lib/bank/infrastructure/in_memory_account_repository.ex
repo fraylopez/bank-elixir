@@ -1,7 +1,7 @@
 defmodule Bank.Infrastructure.InMemoryAccountRepository do
+  use Agent
   alias Bank.AccountId
   alias Bank.Account
-  use Agent
 
   def start_link(_) do
     Agent.start_link(fn -> [] end, name: __MODULE__)
