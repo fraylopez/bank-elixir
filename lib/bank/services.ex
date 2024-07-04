@@ -11,4 +11,17 @@ defmodule Bank.Services do
     @account_repository.save(account)
     account.id
   end
+
+  @spec deposit(AccountId.t(), Money.t()) :: :ok | {:error, :currency_mismatch}
+  def deposit(account_id, money) do
+    account = @account_repository.find(account_id)
+
+    case Account.deposit(account, money) do
+      {:ok, account} ->
+        @account_repository.save(account)
+
+      {:error, :currency_mismatch} ->
+        {:error, :currency_mismatch}
+    end
+  end
 end

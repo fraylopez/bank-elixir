@@ -13,4 +13,20 @@ defmodule Test.Bank.Services do
       assert AccountId.is(account_id)
     end
   end
+
+  describe "deposit" do
+    setup do
+      account_id = Services.open_account(:USD)
+      {:ok, account_id: account_id}
+    end
+
+    test "should do a deposit", %{account_id: account_id} do
+      assert Services.deposit(account_id, MoneyMother.usd(100)) == :ok
+    end
+
+    test "should return a currency mismatch error on deposit", %{account_id: account_id} do
+      assert {:error, :currency_mismatch} =
+               Services.deposit(account_id, MoneyMother.eur(100))
+    end
+  end
 end

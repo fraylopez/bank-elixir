@@ -9,7 +9,7 @@ defmodule Bank.Account do
   alias Bank.AccountId
   alias Bank.Money
 
-  def open(currency \\ :EUR) do
+  def open(currency) do
     %__MODULE__{
       id: AccountId.generate(),
       balance: %Money{
@@ -22,10 +22,10 @@ defmodule Bank.Account do
 
   def currency_of(%__MODULE__{balance: balance}), do: balance.currency
 
-  @spec deposit(t(), Money.t()) :: t() | {:error, :currency_mismatch}
+  @spec deposit(t(), Money.t()) :: {:ok, t()} | {:error, :currency_mismatch}
   def deposit(account, amount) do
     case Money.add(account.balance, amount) do
-      {:ok, updated_balance} -> update_balance(account, updated_balance)
+      {:ok, updated_balance} -> {:ok, update_balance(account, updated_balance)}
       {:error, :currency_mismatch} -> {:error, :currency_mismatch}
     end
   end

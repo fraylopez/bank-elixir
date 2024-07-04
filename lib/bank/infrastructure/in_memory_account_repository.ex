@@ -9,13 +9,18 @@ defmodule Bank.Infrastructure.InMemoryAccountRepository do
 
   @spec find(AccountId.t()) :: Account.t() | nil
   def find(id) do
-    Agent.get(__MODULE__, fn accounts -> Enum.find(accounts, fn a -> a.id == id end) end)
+    Agent.get(
+      __MODULE__,
+      fn accounts ->
+        Enum.find(accounts, fn a -> a.id == id end)
+      end
+    )
   end
 
   @spec save(Account.t()) :: :ok
   def save(account) do
     Agent.update(__MODULE__, fn accounts ->
-      [Enum.filter(accounts, fn a -> a.id != account.id end) | account]
+      Enum.filter(accounts, fn a -> a.id != account.id end) ++ [account]
     end)
   end
 end
