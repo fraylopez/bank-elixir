@@ -41,7 +41,7 @@ defmodule Test.Bank.Account do
 
   describe "withdrawals" do
     test "should withdraw balance" do
-      account =
+      {:ok, account} =
         AccountMother.with_balance_eur(100)
         |> Account.withdraw(MoneyMother.eur(50))
 

@@ -35,7 +35,7 @@ defmodule Bank.Account do
   def withdraw(account, amount) do
     case Money.subtract(account.balance, amount) do
       {:ok, updated_balance} when account.balance >= amount ->
-        update_balance(account, updated_balance)
+        {:ok, update_balance(account, updated_balance)}
 
       {:ok, _updated_balance} ->
         {:error, :insufficient_funds}

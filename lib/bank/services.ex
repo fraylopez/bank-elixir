@@ -24,4 +24,21 @@ defmodule Bank.Services do
         {:error, :currency_mismatch}
     end
   end
+
+  @spec withdraw(AccountId.t(), Money.t()) ::
+          :ok | {:error, :currency_mismatch} | {:error, :insufficient_funds}
+  def withdraw(account_id, money) do
+    account = @account_repository.find(account_id)
+
+    case Account.withdraw(account, money) do
+      {:ok, account} ->
+        @account_repository.save(account)
+
+      {:error, :currency_mismatch} ->
+        {:error, :currency_mismatch}
+
+      {:error, :insufficient_funds} ->
+        {:error, :insufficient_funds}
+    end
+  end
 end
