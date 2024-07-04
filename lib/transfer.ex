@@ -1,2 +1,0 @@
-defmodule Transfer do
-end

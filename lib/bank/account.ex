@@ -1,16 +1,17 @@
 defmodule Bank.Account do
   @type t :: %__MODULE__{
-          id: String.t(),
+          id: AccountId.t(),
           balance: Money.t()
         }
   defstruct id: "",
             balance: 0
 
+  alias Bank.AccountId
   alias Bank.Money
 
   def open(currency \\ :EUR) do
     %__MODULE__{
-      id: UniqueId.generate(),
+      id: AccountId.generate(),
       balance: %Money{
         currency: currency
       }
