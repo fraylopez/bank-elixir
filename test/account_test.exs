@@ -44,4 +44,18 @@ defmodule AccountTest do
 
     assert Account.balance_of(account) == 50
   end
+
+  test "should prevent withdrawals with different currencies" do
+    account = Account.open(:EUR)
+
+    assert {:error, :currency_mismatch} =
+             Account.withdraw(account, MoneyMother.usd(100))
+  end
+
+  test "should prevent withdrawals with insufficient funds" do
+    account = Account.open()
+
+    assert {:error, :insufficient_funds} =
+             Account.withdraw(account, MoneyMother.eur(100))
+  end
 end

@@ -41,16 +41,16 @@ defmodule Money do
         %Money{amount: base_amount, currency: base_currency},
         %Money{amount: substract_amount, currency: substract_currency}
       ) do
-    with true <- base_amount >= substract_amount,
-         {:valid_currency, true} <- validate_currency(base_currency, substract_currency) do
-      {:ok,
-       %Money{
-         currency: base_currency,
-         amount: base_amount - substract_amount
-       }}
-    else
-      false -> {:error, :insufficient_funds}
-      {:valid_currency, false} -> {:error, :currency_mismatch}
+    case validate_currency(base_currency, substract_currency) do
+      {:valid_currency, true} ->
+        {:ok,
+         %Money{
+           currency: base_currency,
+           amount: base_amount - substract_amount
+         }}
+
+      {:valid_currency, {:error, :currency_mismatch}} ->
+        {:error, :currency_mismatch}
     end
   end
 
