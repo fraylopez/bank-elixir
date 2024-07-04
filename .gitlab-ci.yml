@@ -7,8 +7,7 @@ include:
 
 variables:
   TEST_ELIXIR_DIALYZER: "false"
-  PROJECT_NAME: corporate-integrations-api
-  PROJECT_NAMESPACE: corporate
+  PROJECT_NAME: bank
   OMIT_SANDBOX: 'true'
 
 .test:elixir:
