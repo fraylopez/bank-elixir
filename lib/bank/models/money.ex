@@ -1,18 +1,10 @@
 defmodule Bank.Money do
-  @supported_currencies [:EUR, :USD]
+  alias Bank.Currency
 
   @type t :: %__MODULE__{
-          currency: supported_currencies,
+          currency: Currency.supported_currencies(),
           amount: non_neg_integer
         }
-
-  @type supported_currencies ::
-          unquote(
-            @supported_currencies
-            |> Enum.map(&inspect/1)
-            |> Enum.join(" | ")
-            |> Code.string_to_quoted!()
-          )
 
   defstruct currency: :EUR,
             amount: 0

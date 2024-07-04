@@ -1,4 +1,4 @@
-defmodule Bank.AccountTest do
+defmodule Test.Bank.Account do
   use ExUnit.Case
   doctest Bank.Account
 
