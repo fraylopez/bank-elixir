@@ -1,4 +1,4 @@
-defmodule Account do
+defmodule Bank.Account do
   @type t :: %__MODULE__{
           id: String.t(),
           balance: Money.t()
@@ -7,7 +7,7 @@ defmodule Account do
             balance: 0
 
   def open(currency \\ :EUR) do
-    %Account{
+    %__MODULE__{
       id: UniqueId.generate(),
       balance: %Money{
         currency: currency
@@ -15,11 +15,11 @@ defmodule Account do
     }
   end
 
-  def balance_of(%Account{balance: balance}), do: balance.amount
+  def balance_of(%__MODULE__{balance: balance}), do: balance.amount
 
-  def currency_of(%Account{balance: balance}), do: balance.currency
+  def currency_of(%__MODULE__{balance: balance}), do: balance.currency
 
-  @spec deposit(Account.t(), Money.t()) :: Account.t() | {:error, :currency_mismatch}
+  @spec deposit(t(), Money.t()) :: t() | {:error, :currency_mismatch}
   def deposit(account, amount) do
     case Money.add(account.balance, amount) do
       {:ok, updated_balance} -> update_balance(account, updated_balance)
@@ -27,8 +27,8 @@ defmodule Account do
     end
   end
 
-  @spec withdraw(Account.t(), Money.t()) ::
-          Account.t() | {:error, :currency_mismatch} | {:error, :insufficient_funds}
+  @spec withdraw(t(), Money.t()) ::
+          t() | {:error, :currency_mismatch} | {:error, :insufficient_funds}
   def withdraw(account, amount) do
     case Money.subtract(account.balance, amount) do
       {:ok, updated_balance} -> update_balance(account, updated_balance)
@@ -38,7 +38,7 @@ defmodule Account do
   end
 
   defp update_balance(account, balance) do
-    %Account{
+    %__MODULE__{
       account
       | balance: balance
     }

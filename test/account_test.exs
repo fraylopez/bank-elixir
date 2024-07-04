@@ -1,7 +1,8 @@
 defmodule AccountTest do
   use ExUnit.Case
-  doctest Account
+  doctest Bank.Account
 
+  alias Bank.Account
   alias Test.Support.MoneyMother
 
   test "should have 0 balance on open" do
