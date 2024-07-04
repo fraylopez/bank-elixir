@@ -19,8 +19,11 @@ defmodule Bank.Infrastructure.InMemoryAccountRepository do
 
   @spec save(Account.t()) :: :ok
   def save(account) do
-    Agent.update(__MODULE__, fn accounts ->
-      Enum.filter(accounts, fn a -> a.id != account.id end) ++ [account]
-    end)
+    Agent.update(
+      __MODULE__,
+      fn accounts ->
+        Enum.filter(accounts, fn a -> a.id != account.id end) ++ [account]
+      end
+    )
   end
 end

@@ -31,7 +31,7 @@ defmodule Bank.Account do
   end
 
   @spec withdraw(t(), Money.t()) ::
-          t() | {:error, :currency_mismatch} | {:error, :insufficient_funds}
+          {:ok, t()} | {:error, :currency_mismatch} | {:error, :insufficient_funds}
   def withdraw(account, amount) do
     case Money.subtract(account.balance, amount) do
       {:ok, updated_balance} when account.balance >= amount ->

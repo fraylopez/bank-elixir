@@ -4,7 +4,6 @@ defmodule Test.Bank.Services do
 
   alias Bank.AccountId
   alias Bank.Services
-  alias Bank.Account
   alias Test.Support.MoneyMother
 
   describe "open an account" do
