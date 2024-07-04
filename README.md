@@ -1,5 +1,9 @@
 # Bank
 
+## Architecture
+
+![Architecture](./docs/out/architecture.png)
+
 ## Goals
 
 - Architecture guidelines

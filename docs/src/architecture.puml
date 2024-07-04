@@ -1,0 +1,26 @@
+@startuml Architecture
+
+package bank {
+  class Service
+
+  package models {
+    class Account
+    class AccountId
+    class Money
+    class Currency
+  }
+
+  package infrastructure {
+    class InMemoryAccountRepository
+  }
+}
+
+Service --> InMemoryAccountRepository
+InMemoryAccountRepository --> Account
+Service --> Account
+Account *--> AccountId
+Account *--> Money
+Money *--> Currency
+
+
+@enduml
