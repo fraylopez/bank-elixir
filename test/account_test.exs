@@ -22,21 +22,17 @@ defmodule AccountTest do
     assert Account.balance_of(account) == 100
   end
 
+  test "should allow opening an account in a specific currency" do
+    account = Account.open(:USD)
+
+    assert Account.currency_of(account) == :USD
+  end
+
   test "should prevent deposits with different currencies" do
-    account =
-      Account.open()
-      |> Account.deposit(MoneyMother.eur(100))
+    account = Account.open(:EUR)
 
     assert {:error, :currency_mismatch} =
              Account.deposit(account, MoneyMother.usd(100))
-  end
-
-  test "should allow opening an account in a specific currency" do
-    account =
-      Account.open(:USD)
-      |> Account.deposit(MoneyMother.usd(100))
-
-    assert Account.currency_of(account) == :USD
   end
 
   test "should withdraw balance" do

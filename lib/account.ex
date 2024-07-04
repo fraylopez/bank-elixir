@@ -19,7 +19,7 @@ defmodule Account do
 
   def currency_of(%Account{balance: balance}), do: balance.currency
 
-  @spec deposit(Account.t(), Money.t()) :: Account.t()
+  @spec deposit(Account.t(), Money.t()) :: Account.t() | {:error, :currency_mismatch}
   def deposit(account, amount) do
     case Money.add(account.balance, amount) do
       {:ok, updated_balance} -> update_balance(account, updated_balance)
@@ -27,11 +27,13 @@ defmodule Account do
     end
   end
 
-  @spec withdraw(Account.t(), Money.t()) :: Account.t()
+  @spec withdraw(Account.t(), Money.t()) ::
+          Account.t() | {:error, :currency_mismatch} | {:error, :insufficient_funds}
   def withdraw(account, amount) do
     case Money.subtract(account.balance, amount) do
       {:ok, updated_balance} -> update_balance(account, updated_balance)
       {:error, :insufficient_funds} -> {:error, :insufficient_funds}
+      {:error, :currency_mismatch} -> {:error, :currency_mismatch}
     end
   end
 
