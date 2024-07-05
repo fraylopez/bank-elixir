@@ -1,7 +1,13 @@
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH && $CI_COMMIT_BRANCH != "staging")
+      when: never # Do not run branch (push) pipelines when the branch is not the default or staging one.
+    - when: always # Run all other pipeline types, or replace with specific workflow rules.
+
 stages:
   - test
 
-.elixir:
+.elixir: &elixir
   image: gitlab.otters.xyz:5005/product/guild/elixir/dockerfiles/docker-ci-elixir/docker-ci-elixir:1.15
   before_script:
     - mix local.hex --force
