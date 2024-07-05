@@ -1,36 +1,19 @@
-include:
-  - project: product/business/experience/ci-config
-    file: presets/elixir.yml
+stages:
+  - test
 
 .elixir:
   image: gitlab.otters.xyz:5005/product/guild/elixir/dockerfiles/docker-ci-elixir/docker-ci-elixir:1.15
+  before_script:
+    - mix local.hex --force
+    - mix local.rebar --force
+    - mix deps.get --only $MIX_ENV
 
-variables:
-  TEST_ELIXIR_DIALYZER: "false"
-  PROJECT_NAME: bank
-  OMIT_SANDBOX: 'true'
 
 .test:elixir:
   extends: .elixir_cache_pull
   stage: test
-  needs: ["build:elixir"]
   variables:
-    # MYSQL_HOSTNAME: gitlab-mysql
-    # MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-    # MYSQL_ROOT_HOST: "%"
-
-  services:
-    # - name: mysql:8
-    #   alias: gitlab-mysql
-
+    MIX_ENV: test
   script:
-    # - tries=50;
-    #   while [ $tries -gt 0 ]; do
-    #     set +e;
-    #     nc -zvw10 gitlab-mysql 3306 && break;
-    #     set -e;
-    #     tries=$(($tries - 1));
-    #     sleep 10;
-    #   done;
-    # - mix ecto.setup
     - mix test
+
