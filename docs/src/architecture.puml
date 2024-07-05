@@ -15,6 +15,19 @@ package bank {
   }
 }
 
+package test {
+  package test.bank {
+    class ServiceTest
+
+    package test.bank.models {
+      class AccountTest
+  }
+}
+
+ServiceTest --> Service
+AccountTest --> Account
+
+
 Service --> InMemoryAccountRepository
 InMemoryAccountRepository --> Account
 Service --> Account
