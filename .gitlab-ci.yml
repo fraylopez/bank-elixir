@@ -10,6 +10,7 @@ stages:
 
 
 .test:elixir:
+  extends: .elixir
   stage: test
   variables:
     MIX_ENV: test
