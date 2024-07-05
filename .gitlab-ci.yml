@@ -8,7 +8,7 @@ stages:
   - test
 
 .elixir: &elixir
-  image: gitlab.otters.xyz:5005/product/guild/elixir/dockerfiles/docker-ci-elixir/docker-ci-elixir:1.15
+  image: gitlab.otters.xyz:5005/product/guild/elixir/dockerfiles/docker-ci-elixir/docker-ci-elixir:1.16
   before_script:
     - mix local.hex --force
     - mix local.rebar --force
