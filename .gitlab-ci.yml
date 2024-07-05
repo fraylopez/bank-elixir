@@ -10,7 +10,6 @@ stages:
 
 
 .test:elixir:
-  extends: .elixir_cache_pull
   stage: test
   variables:
     MIX_ENV: test
