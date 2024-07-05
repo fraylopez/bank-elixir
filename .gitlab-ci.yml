@@ -7,7 +7,7 @@
 stages:
   - test
 
-elixir:
+.elixir: &elixir
   image: gitlab.otters.xyz:5005/product/guild/elixir/dockerfiles/docker-ci-elixir/docker-ci-elixir:1.15
   before_script:
     - mix local.hex --force
@@ -16,7 +16,7 @@ elixir:
 
 
 test:
-  extends: elixir
+  extends: .elixir
   stage: test
   variables:
     MIX_ENV: test
