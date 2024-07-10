@@ -6,15 +6,8 @@ defmodule Test.BankWeb.BankController do
 
   @endpoint BankWeb.Endpoint
 
-  setup do
-    conn = build_conn()
-    {:ok, conn: conn}
-  end
-
-  test "hello", %{
-    conn: conn
-  } do
-    conn
+  test "hello" do
+    build_conn()
     |> get("/")
     |> response(200)
   end
