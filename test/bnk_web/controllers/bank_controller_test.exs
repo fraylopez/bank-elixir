@@ -6,9 +6,12 @@ defmodule Test.BankWeb.BankController do
 
   @endpoint BankWeb.Endpoint
 
-  test "hello" do
-    build_conn()
-    |> get("/")
-    |> response(200)
+  test "should greet" do
+    response =
+      build_conn()
+      |> get("/")
+      |> response(200)
+
+    assert response =~ "Hello, world!"
   end
 end
