@@ -5,7 +5,8 @@ defmodule Bank.Application do
     import Supervisor.Spec, warn: false
 
     children = [
-      Bank.Infrastructure.InMemoryAccountRepository
+      Bank.Infrastructure.InMemoryAccountRepository,
+      BankWeb.Endpoint
     ]
 
     opts = [strategy: :one_for_one, name: Bank.Supervisor]

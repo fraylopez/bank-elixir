@@ -7,6 +7,7 @@ defmodule Bank.MixProject do
       version: "0.1.0",
       elixir: "~> 1.16",
       elixirc_paths: elixirrc_paths(Mix.env()),
+      compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -25,6 +26,12 @@ defmodule Bank.MixProject do
     [
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+
+      # from bank_web
+      {:phoenix, "== 1.7.14"},
+      {:plug_cowboy, "~> 2.0"},
+      {:plug, "~> 1.7"},
+      {:jason, "~> 1.0"}
     ]
   end
 
