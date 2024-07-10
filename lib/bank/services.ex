@@ -1,7 +1,7 @@
 defmodule Bank.Services do
-  alias Bank.Money
-  alias Bank.AccountId
-  alias Bank.Account
+  alias Bank.Models.Money
+  alias Bank.Models.AccountId
+  alias Bank.Models.Account
 
   @account_repository Application.compile_env!(:bank, :account_repository)
 

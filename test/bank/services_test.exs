@@ -2,7 +2,7 @@ defmodule Test.Bank.Services do
   use ExUnit.Case
   doctest Bank.Services
 
-  alias Bank.AccountId
+  alias Bank.Models.AccountId
   alias Bank.Services
   alias Test.Support.MoneyMother
 

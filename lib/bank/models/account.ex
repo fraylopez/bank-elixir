@@ -1,4 +1,4 @@
-defmodule Bank.Account do
+defmodule Bank.Models.Account do
   @type t :: %__MODULE__{
           id: AccountId.t(),
           balance: Money.t()
@@ -6,8 +6,8 @@ defmodule Bank.Account do
   defstruct id: "",
             balance: 0
 
-  alias Bank.AccountId
-  alias Bank.Money
+  alias Bank.Models.AccountId
+  alias Bank.Models.Money
 
   def open(currency) do
     %__MODULE__{

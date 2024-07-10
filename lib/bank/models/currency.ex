@@ -1,4 +1,4 @@
-defmodule Bank.Currency do
+defmodule Bank.Models.Currency do
   @supported_currencies [:EUR, :USD]
 
   @type supported_currencies ::
