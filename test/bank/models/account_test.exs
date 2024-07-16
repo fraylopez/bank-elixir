@@ -8,15 +8,19 @@ defmodule Test.Bank.Account do
 
   describe "open an account" do
     test "should have 0 balance on open" do
-      assert Account.balance_of(Account.open(:EUR)) == 0
+      {:ok, account} = Account.open(:EUR)
+      assert Account.balance_of(account) == 0
     end
 
     test "should have a unique id" do
-      refute AccountMother.new_eur() == AccountMother.new_eur()
+      {:ok, account1} = Account.open(:EUR)
+      {:ok, account2} = Account.open(:EUR)
+
+      refute account1 == account2
     end
 
     test "should allow opening an account in a specific currency" do
-      account = Account.open(:USD)
+      {:ok, account} = Account.open(:USD)
 
       assert Account.currency_of(account) == :USD
     end

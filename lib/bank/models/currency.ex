@@ -8,4 +8,8 @@ defmodule Bank.Models.Currency do
             |> Enum.join(" | ")
             |> Code.string_to_quoted!()
           )
+
+  def supported?(currency) do
+    currency in @supported_currencies
+  end
 end

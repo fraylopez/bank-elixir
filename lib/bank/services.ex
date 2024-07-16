@@ -5,11 +5,16 @@ defmodule Bank.Services do
 
   @account_repository Application.compile_env!(:bank, :account_repository)
 
-  @spec open_account(Money.supported_currencies()) :: AccountId.t()
+  @spec open_account(Money.supported_currencies()) :: {:ok, AccountId.t()} | {:error, term()}
   def open_account(currency) do
-    account = Account.open(currency)
-    @account_repository.save(account)
-    account.id
+    case Account.open(currency) do
+      {:ok, account} ->
+        @account_repository.save(account)
+        {:ok, account.id}
+
+      {:error, reason} ->
+        {:error, reason}
+    end
   end
 
   @spec deposit(AccountId.t(), Money.t()) :: :ok | {:error, :currency_mismatch}

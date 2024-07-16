@@ -8,14 +8,14 @@ defmodule Test.Bank.Services do
 
   describe "open an account" do
     test "should open an account in a specific currency and get its id" do
-      account_id = Services.open_account(:USD)
+      {:ok, account_id} = Services.open_account(:USD)
       assert AccountId.is(account_id)
     end
   end
 
   describe "deposit" do
     setup do
-      account_id = Services.open_account(:USD)
+      {:ok, account_id} = Services.open_account(:USD)
       {:ok, account_id: account_id}
     end
 
@@ -31,7 +31,7 @@ defmodule Test.Bank.Services do
 
   describe "withdraw" do
     setup do
-      account_id = Services.open_account(:USD)
+      {:ok, account_id} = Services.open_account(:USD)
       Services.deposit(account_id, MoneyMother.usd(100))
       {:ok, account_id: account_id}
     end

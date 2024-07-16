@@ -30,3 +30,9 @@
     - some_module/
       - enitites
       - SomeCaseController.ex
+
+## Fun list
+
+- Users are the owners of accounts
+- Removing users should close all accounts
+- Use case to create a new user with a new account

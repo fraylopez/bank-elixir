@@ -8,14 +8,22 @@ defmodule Bank.Models.Account do
 
   alias Bank.Models.AccountId
   alias Bank.Models.Money
+  alias Bank.Models.Currency
+
+  @spec open(Currency.t()) :: {:ok, Bank.Models.Account.t()} | {:error, :invalid_currency}
 
   def open(currency) do
-    %__MODULE__{
-      id: AccountId.generate(),
-      balance: %Money{
-        currency: currency
-      }
-    }
+    if Currency.supported?(currency) do
+      {:ok,
+       %__MODULE__{
+         id: AccountId.generate(),
+         balance: %Money{
+           currency: currency
+         }
+       }}
+    else
+      {:error, :invalid_currency}
+    end
   end
 
   def balance_of(%__MODULE__{balance: balance}), do: balance.amount

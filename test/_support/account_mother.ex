@@ -3,11 +3,14 @@ defmodule Test.Support.AccountMother do
   alias Bank.Models.Account
 
   def new_eur() do
-    Account.open(:EUR)
+    {:ok, account} = Account.open(:EUR)
+    account
   end
 
   def with_balance_eur(balance \\ 100) do
-    Account.open(:EUR)
+    {:ok, account} = Account.open(:EUR)
+
+    account
     |> Account.deposit(MoneyMother.eur(balance))
     |> case do
       {:ok, account} -> account
