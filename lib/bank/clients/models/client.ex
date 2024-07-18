@@ -14,13 +14,13 @@ defmodule Bank.Clients.Models.Client do
   defstruct id: nil, name: nil, email: nil, credit_score: 100
 
   def new(%{
-        name: name,
+        first_name: first_name,
         last_name: last_name,
         email: email
       }) do
     %__MODULE__{
       id: ClientId.generate(),
-      name: Name.new(name, last_name),
+      name: Name.new(first_name, last_name),
       email: Email.new(email),
       credit_score: CreditScore.new()
     }
