@@ -1,8 +1,8 @@
 defmodule Test.BankWeb.BankController do
-  alias Bank.Models.AccountId
   use ExUnit.Case
   doctest BankWeb.BankController
 
+  alias Bank.Accounts.Models.AccountId
   import Phoenix.ConnTest
 
   @endpoint BankWeb.Endpoint

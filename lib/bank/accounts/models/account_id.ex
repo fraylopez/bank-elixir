@@ -1,4 +1,4 @@
-defmodule Bank.Models.AccountId do
+defmodule Bank.Accounts.Models.AccountId do
   @type t :: String.t()
   def generate do
     :crypto.strong_rand_bytes(16) |> Base.encode64()

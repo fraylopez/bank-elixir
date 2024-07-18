@@ -1,6 +1,6 @@
 defmodule Test.Support.AccountMother do
   alias Test.Support.MoneyMother
-  alias Bank.Models.Account
+  alias Bank.Accounts.Models.Account
 
   def new_eur() do
     {:ok, account} = Account.open(:EUR)

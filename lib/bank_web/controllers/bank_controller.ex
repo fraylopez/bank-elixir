@@ -7,7 +7,7 @@ defmodule BankWeb.BankController do
 
   def open(conn, params) do
     with {:ok, currency} <- maybe_get_currency(params),
-         {:ok, id} <- Bank.Services.open_account(currency) do
+         {:ok, id} <- Bank.Accounts.Services.open_account(currency) do
       json(conn, %{id: id})
     else
       {:error, :invalid_currency} ->

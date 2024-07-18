@@ -1,5 +1,5 @@
-defmodule Bank.Models.Money do
-  alias Bank.Models.Currency
+defmodule Bank.Accounts.Models.Money do
+  alias Bank.Accounts.Models.Currency
 
   @type t :: %__MODULE__{
           currency: Currency.supported_currencies(),

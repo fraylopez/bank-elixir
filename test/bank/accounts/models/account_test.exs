@@ -1,10 +1,10 @@
-defmodule Test.Bank.Account do
+defmodule Test.Bank.Accounts.Models.Account do
   use ExUnit.Case
-  doctest Bank.Models.Account
+  doctest Bank.Accounts.Models.Account
 
   alias Test.Support.AccountMother
   alias Test.Support.MoneyMother
-  alias Bank.Models.Account
+  alias Bank.Accounts.Models.Account
 
   describe "open an account" do
     test "should have 0 balance on open" do

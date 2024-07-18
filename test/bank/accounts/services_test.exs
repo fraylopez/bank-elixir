@@ -1,9 +1,9 @@
-defmodule Test.Bank.Services do
+defmodule Test.Bank.Accounts.Services do
   use ExUnit.Case
-  doctest Bank.Services
+  doctest Bank.Accounts.Services
 
-  alias Bank.Models.AccountId
-  alias Bank.Services
+  alias Bank.Accounts.Models.AccountId
+  alias Bank.Accounts.Services
   alias Test.Support.MoneyMother
 
   describe "open an account" do

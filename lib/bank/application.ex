@@ -5,7 +5,7 @@ defmodule Bank.Application do
     import Supervisor.Spec, warn: false
 
     children = [
-      Bank.Infrastructure.InMemoryAccountRepository,
+      Bank.Accounts.Infrastructure.InMemoryAccountRepository,
       BankWeb.Endpoint
     ]
 

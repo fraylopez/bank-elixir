@@ -11,6 +11,6 @@ config :bank, BankWeb.Endpoint,
     port: System.get_env("PORT", "8080") |> String.to_integer()
   ]
 
-config :bank, :account_repository, Bank.Infrastructure.InMemoryAccountRepository
+config :bank, :account_repository, Bank.Accounts.Infrastructure.InMemoryAccountRepository
 
 import_config("#{Mix.env()}.exs")

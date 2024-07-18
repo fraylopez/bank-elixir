@@ -1,7 +1,7 @@
-defmodule Bank.Models.AccountIdTest do
+defmodule Test.Bank.Accounts.Models.AccountId do
   use ExUnit.Case
 
-  alias Bank.Models.AccountId
+  alias Bank.Accounts.Models.AccountId
 
   describe "is" do
     test "should return true if the account id is valid" do

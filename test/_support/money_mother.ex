@@ -1,5 +1,5 @@
 defmodule Test.Support.MoneyMother do
-  alias Bank.Models.Money
+  alias Bank.Accounts.Models.Money
 
   def eur(amount) do
     %Money{amount: amount, currency: :EUR}

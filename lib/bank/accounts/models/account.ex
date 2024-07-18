@@ -1,4 +1,4 @@
-defmodule Bank.Models.Account do
+defmodule Bank.Accounts.Models.Account do
   @type t :: %__MODULE__{
           id: AccountId.t(),
           balance: Money.t()
@@ -6,9 +6,9 @@ defmodule Bank.Models.Account do
   defstruct id: "",
             balance: 0
 
-  alias Bank.Models.AccountId
-  alias Bank.Models.Money
-  alias Bank.Models.Currency
+  alias Bank.Accounts.Models.AccountId
+  alias Bank.Accounts.Models.Money
+  alias Bank.Accounts.Models.Currency
 
   @spec open(Currency.t()) :: {:ok, Bank.Models.Account.t()} | {:error, :invalid_currency}
 
