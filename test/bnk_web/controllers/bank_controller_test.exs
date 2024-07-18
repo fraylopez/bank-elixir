@@ -33,4 +33,13 @@ defmodule Test.BankWeb.BankController do
 
     assert response["error"] == "Invalid currency"
   end
+
+  test "should return 400 if currency is missing" do
+    response =
+      build_conn()
+      |> post("/open", %{})
+      |> json_response(400)
+
+    assert response["error"] == "Missing currency"
+  end
 end

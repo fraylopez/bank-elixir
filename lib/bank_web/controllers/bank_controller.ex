@@ -6,18 +6,25 @@ defmodule BankWeb.BankController do
   end
 
   def open(conn, params) do
-    currency = params |> Map.get("currency") |> String.to_atom()
-
-    case Bank.Services.open_account(currency) do
-      {:ok, id} ->
-        json(conn, %{id: id})
-
+    with {:ok, currency} <- maybe_get_currency(params),
+         {:ok, id} <- Bank.Services.open_account(currency) do
+      json(conn, %{id: id})
+    else
       {:error, :invalid_currency} ->
         conn |> put_status(400) |> json(%{error: "Invalid currency"})
 
-      ee ->
-        IO.inspect(ee)
+      {:error, :missing_currency} ->
+        conn |> put_status(400) |> json(%{error: "Missing currency"})
+
+      _ ->
         conn |> put_status(500) |> json(%{error: "Internal server error"})
+    end
+  end
+
+  defp maybe_get_currency(params) do
+    case Map.get(params, "currency") do
+      nil -> {:error, :missing_currency}
+      currency -> {:ok, String.to_atom(currency)}
     end
   end
 end
