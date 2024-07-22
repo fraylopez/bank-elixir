@@ -2,7 +2,7 @@
 
 ## Architecture
 
-![Architecture](./docs/out/architecture.png)
+![Architecture](./docs/out/Architecture.png)
 
 ## Goals
 

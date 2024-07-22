@@ -1,39 +1,68 @@
 @startuml Architecture
 
+class MixFile
+
 package bank {
-  class Service
+  class Application
+  interface Child
 
-  package models {
-    class Account
-    class AccountId
-    class Money
-    class Currency
+  package bank.accounts {
+    class AccountsService as "Service"
+
+    package bank.accounts.models as "models" {
+      class Account
+      class AccountId
+      class Money
+      class Currency
+    }
+
+    package infrastructure {
+      class InMemoryAccountRepository
+    }
   }
+  package bank.clients {
+    class ClientsService as "Service"
 
-  package infrastructure {
-    class InMemoryAccountRepository
+    package bank.clients.models as "models" {
+      class Client
+      class Email
+      class ClientId
+      class Name
+    }
+
+    package infrastructure {
+      class InMemoryAccountRepository
+    }
   }
 }
 
-package test {
-  package test.bank {
-    class ServiceTest
-
-    package test.bank.models {
-      class AccountTest
+package bank.web {
+  class Endpoint
+  class Router
+  package bank.web.controllers as "controllers" {
+    class BankController
   }
 }
 
-ServiceTest --> Service
-AccountTest --> Account
+MixFile --> Application
+Application o--> Child
+bank.web.Endpoint --|> Child
+InMemoryAccountRepository --|> Child
 
 
-Service --> InMemoryAccountRepository
+Endpoint --> Router
+Router --> BankController
+BankController --> AccountsService
+BankController --> ClientsService
+
+
+AccountsService --> InMemoryAccountRepository
 InMemoryAccountRepository --> Account
-Service --> Account
+AccountsService --> Account
 Account *--> AccountId
 Account *--> Money
 Money *--> Currency
+
 
 
 @enduml
