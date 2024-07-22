@@ -44,8 +44,8 @@ package bank.web {
   }
 }
 
-MixFile --> Application
-Application o--> Child
+MixFile -up-> Application
+Application o-up-> Child
 Endpoint --|> Child
 InMemoryAccountRepository --|> Child
 
@@ -62,6 +62,11 @@ AccountsService --> Account
 Account *--> AccountId
 Account *--> Money
 Money *--> Currency
+
+ClientsService --> Client
+Client *--> ClientId
+Client *--> Name
+Client *--> Email
 
 
 
