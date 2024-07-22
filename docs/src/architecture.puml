@@ -46,7 +46,7 @@ package bank.web {
 
 MixFile --> Application
 Application o--> Child
-bank.web.Endpoint --|> Child
+Endpoint --|> Child
 InMemoryAccountRepository --|> Child
 
 
