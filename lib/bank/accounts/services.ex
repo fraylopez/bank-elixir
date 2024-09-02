@@ -7,43 +7,29 @@ defmodule Bank.Accounts.Services do
 
   @spec open_account(Money.supported_currencies()) :: {:ok, AccountId.t()} | {:error, term()}
   def open_account(currency) do
-    case Account.open(currency) do
-      {:ok, account} ->
-        @account_repository.save(account)
-        {:ok, account.id}
-
-      {:error, reason} ->
-        {:error, reason}
+    with {:ok, account} <- Account.open(currency),
+         :ok <- @account_repository.save(account) do
+      {:ok, account.id}
     end
   end
 
   @spec deposit(AccountId.t(), Money.t()) :: :ok | {:error, :currency_mismatch}
   def deposit(account_id, money) do
-    account = @account_repository.find(account_id)
+    # move this to a with statement
+    # account = @account_repository.find(account_id)
 
-    case Account.deposit(account, money) do
-      {:ok, account} ->
-        @account_repository.save(account)
-
-      {:error, :currency_mismatch} ->
-        {:error, :currency_mismatch}
+    with {:ok, account} <- @account_repository.find(account_id),
+         {:ok, account} <- Account.deposit(account, money) do
+      @account_repository.save(account)
     end
   end
 
   @spec withdraw(AccountId.t(), Money.t()) ::
           :ok | {:error, :currency_mismatch} | {:error, :insufficient_funds}
   def withdraw(account_id, money) do
-    account = @account_repository.find(account_id)
-
-    case Account.withdraw(account, money) do
-      {:ok, account} ->
-        @account_repository.save(account)
-
-      {:error, :currency_mismatch} ->
-        {:error, :currency_mismatch}
-
-      {:error, :insufficient_funds} ->
-        {:error, :insufficient_funds}
+    with {:ok, account} <- @account_repository.find(account_id),
+         {:ok, account} <- Account.withdraw(account, money) do
+      @account_repository.save(account)
     end
   end
 end

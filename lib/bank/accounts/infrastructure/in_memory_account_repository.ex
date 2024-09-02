@@ -7,12 +7,16 @@ defmodule Bank.Accounts.Infrastructure.InMemoryAccountRepository do
     Agent.start_link(fn -> [] end, name: __MODULE__)
   end
 
-  @spec find(AccountId.t()) :: Account.t() | nil
+  @spec find(AccountId.t()) :: {:ok, Account.t()} | :not_found
   def find(id) do
     Agent.get(
       __MODULE__,
       fn accounts ->
         Enum.find(accounts, fn a -> a.id == id end)
+        |> case do
+          nil -> :not_found
+          account -> {:ok, account}
+        end
       end
     )
   end
